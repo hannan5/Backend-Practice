@@ -12,7 +12,7 @@ class Auth {
           return User.findOne({ Email: req.body.Email })
             .then(async (res) => {
               if (res) {
-                return resolve({
+                return reject({
                   status: 400,
                   message: "Email Address is Already Register",
                 });
