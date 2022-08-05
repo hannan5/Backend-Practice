@@ -44,17 +44,23 @@ class Products {
   };
 
   GetProduct = async (req) =>{
-    // console.log(req.body)
+    let nameFilter = req.query.ProductName?{ProductName:{"$regex":req.query.ProductName,"$options":"i"}}:{};
+    let priceFilter = req.query.MaxPrice && req.query.MinPrice ? {Price:{"$lte":req.query.MaxPrice, "$gte":req.query.MinPrice}}:{}
+    let ProductCategory = req.query.Category ? {Category:req.query.Category}:{}
+    let ProductCount  = await Product.countDocuments({
+      ...nameFilter, ...priceFilter, ...ProductCategory,
+    })
     return new Promise(async (resolve, reject) => {
-      return Product.find()
+      return Product.find().find(nameFilter).find(priceFilter).find(ProductCategory)
       .then((res)=>{
         return resolve({
             status: 200,
             message: res,
+            TotalProduct:ProductCount,
           });
       })
       .catch((e)=>{
-        return reject({ status: 401, msg: er });
+        return reject({ status: 401, msg: e });
       }) 
     })
   }

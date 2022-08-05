@@ -4,6 +4,8 @@ const app = express()
 const bodyparser = require('body-parser')
 const AuthRouter = require('./Routes/Auth')
 const ProductRouter = require('./Routes/Product')
+const CartRouter = require('./Routes/Cart');
+const Cart = require('./Modals/Cart');
 require('dotenv').config()
 
 app.use(bodyparser.json())
@@ -15,12 +17,11 @@ const start = async () => {
         console.log(error)
     }
 }
-
-
-start()
+start();
 
 app.use('/',AuthRouter)
 app.use('/product',ProductRouter)
+app.use('/cart',CartRouter)
 
 app.listen(3001,()=>{
     console.log(`Port is Connected`);

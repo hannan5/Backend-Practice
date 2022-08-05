@@ -15,7 +15,7 @@ class ProductController {
     }
 
     GetProducts = (req, res, next) => {
-      const result = Products.GetProduct();
+      const result = Products.GetProduct(req);
       result
         .then((resp) => {
           // res.status(200).json(resp);
