@@ -11,11 +11,14 @@ const CartSchema = new mongoose.Schema({
     },
     Price:{
         type:Number,
-        required:true,
+        // required:true,
     },
     Quantity:{
         type:Number,
         required:true,
+    },
+    ProductPrice:{
+        type:Number, 
     },
 })
 module.exports = new mongoose.model('Cart',CartSchema)
