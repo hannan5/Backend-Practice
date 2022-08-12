@@ -71,5 +71,19 @@ class Auth {
     }
     });
   };
+
+  ForgetPassword = ((req,res,next)=>{
+    
+    return new Promise((resolve,reject)=>{
+      return User.find({Email:req.body.Email})
+      .then((res)=>{
+        return resolve({ status: 200, res: res })
+      })
+      .catch((e)=>{
+        console.log(e)
+      })
+    })
+
+  })
 }
 module.exports = new Auth();

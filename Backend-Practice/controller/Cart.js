@@ -24,5 +24,30 @@ AddCarts = (req,res,next)=>{
             res.status(400).json(e);
           })
     }
+
+    DeleteSingleCart = (req, res, next) => {
+      const result = Cart.RemoveSingleCart(req);
+      result
+        .then((resp) => {
+          // res.status(200).json(resp);
+          res.status(200).json(resp);
+        })
+        .catch((e) => {
+          console.log(e);
+          res.status(400).json(e);
+        })
+  }
+
+  EmptyCart = (req, res, next) => {
+    const result = Cart.EmptyCart(req);
+    result
+      .then((resp) => {
+        res.status(200).json(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+        res.status(400).json(e);
+      })
+}
 }
 module.exports = new CartController;
