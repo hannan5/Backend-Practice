@@ -26,5 +26,18 @@ class ProductController {
           res.status(400).json(e);
         })
   }
+
+  GetSingleProduct = (req, res, next) => {
+    const result = Products.GetSingleProduct(req);
+    result
+      .then((resp) => {
+        // res.status(200).json(resp);
+        res.status(200).json(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+        res.status(400).json(e);
+      })
+}
 }
 module.exports = new ProductController
