@@ -8,7 +8,7 @@ class AuthControllers {
         res.status(200).json(resp);
       })
       .catch((e) => {
-        console.log(e);
+        res.status(400).json(e);
       });
   };
 
@@ -27,6 +27,32 @@ class AuthControllers {
 
   ForgetPassword = (req, res, next) => {
     const result = Auth.ForgetPassword(req);
+    result
+      .then((resp) => {
+        // res.status(200).json(resp);
+        res.status(200).json(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+        res.status(400).json(e);
+      });
+  }
+
+  VerifyOtp = (req, res, next) =>{
+    const result = Auth.VerifyOTP(req);
+    result
+      .then((resp) => {
+        // res.status(200).json(resp);
+        res.status(200).json(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+        res.status(400).json(e);
+      });
+  }
+
+  NewPassword = (req, res, next) =>{
+    const result = Auth.NewPassword(req);
     result
       .then((resp) => {
         // res.status(200).json(resp);

@@ -101,24 +101,24 @@ class Carts {
     });
   };
 
-  EmptyCart = (req,res,next) =>{
-    return new Promise((resolve,reject)=>{
+  EmptyCart = (req, res, next) => {
+    return new Promise((resolve, reject) => {
       if (req.query.id) {
-        return Cart.deleteMany({User:req.query.id})
-        .then((res)=>{
-          return resolve({
-            status: 200,
-            message: "Cart Empty",
+        return Cart.deleteMany({ User: req.query.id })
+          .then((res) => {
+            return resolve({
+              status: 200,
+              message: "Cart Empty",
+            });
+          })
+          .catch((e) => {
+            return reject({
+              status: 400,
+              message: "Cart is not Empty",
+            });
           });
-        })
-        .catch((e)=>{
-          return reject({
-            status: 400,
-            message: "Cart is not Empty",
-          });
-        })
       }
-    })
-  }
+    });
+  };
 }
 module.exports = new Carts();
