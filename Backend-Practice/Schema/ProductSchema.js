@@ -20,6 +20,12 @@ const ProductSchema = new mongoose.Schema({
     Description:{
         type:String,
         required:true,
+    },
+    Date:{
+        type:Date,
+        default:Date.now,
+        required:true,
     }
+    
 })
 module.exports = new mongoose.model('Product',ProductSchema)
