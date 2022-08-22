@@ -1,10 +1,11 @@
+const GloabalFunctions = require("../GloabalFunctions");
 const Product = require("../Schema/ProductSchema");
 class Products {
   AddProduct = async (req) => {
     // console.log(req.body);
-    const { ProductName, Price, Quantity, Category, Description } = req.body;
+    const { ProductName, Price, Quantity, Category, Description, ProductImage } = req.body;
     return new Promise(async (resolve, reject) => {
-      if (ProductName && Price && Quantity && Category && Description) {
+      if (ProductName && Price && Quantity && Category && Description && ProductImage) {
         return Product.findOne({
           ProductName: ProductName,
         }).then(async (res) => {
@@ -67,22 +68,19 @@ class Products {
           $lte: todate,
         },
       };
+    } else if (req.query.todate) {
+      datequery = {
+        Date: {
+          $lte: todate,
+        },
+      };
+    } else if (req.query.fromdate) {
+      datequery = {
+        Date: {
+          $gte: fromdate,
+        },
+      };
     }
-    else if(req.query.todate){
-      datequery={
-        Date:{
-          $lte:todate
-        }
-      }
-    }
-    else if(req.query.fromdate){
-      datequery={
-        Date:{
-          $gte:fromdate,
-        }
-      }
-    }
-    
 
     return new Promise(async (resolve, reject) => {
       return Product.find()

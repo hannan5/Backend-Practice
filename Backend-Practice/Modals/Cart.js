@@ -30,7 +30,6 @@ class Carts {
               });
             });
         } else {
-          // console.log(req.body.Quantity*req.body.ProductPrice)
           const data = await Cart({
             ...req.body,
             Price: req.body.Quantity * req.body.ProductPrice,
@@ -120,5 +119,11 @@ class Carts {
       }
     });
   };
+
+  // Checkout = (req) =>{
+  //   return new Promise((resolve,reject)=>{
+
+  //   })
+  // }
 }
 module.exports = new Carts();
