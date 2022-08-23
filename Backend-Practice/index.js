@@ -11,6 +11,7 @@ require('dotenv').config()
 
 app.use(bodyparser.json())
 
+
 const start = async () => {
     try {
         await connectDB('mongodb+srv://hannan:hannan123@cluster0.qhfp1.mongodb.net/?retryWrites=true&w=majority')

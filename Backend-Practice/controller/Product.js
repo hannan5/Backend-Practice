@@ -1,4 +1,4 @@
-const GloabalFunctions = require("../GloabalFunctions");
+const GlobalFunctions = require("../GloabalFunctions");
 const Products = require("../Modals/Product");
 
 class ProductController {
@@ -41,7 +41,8 @@ class ProductController {
       })
 }
 ImageUpload = (req, res, next) =>{
-  const result = GloabalFunctions.UploadImage(req);
+  console.log(req)
+  const result = GlobalFunctions.UploadImage(req);
   result
     .then((resp) => {
       // res.status(200).json(resp);

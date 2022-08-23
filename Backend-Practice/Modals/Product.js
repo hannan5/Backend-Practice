@@ -2,10 +2,9 @@ const GloabalFunctions = require("../GloabalFunctions");
 const Product = require("../Schema/ProductSchema");
 class Products {
   AddProduct = async (req) => {
-    // console.log(req.body);
-    const { ProductName, Price, Quantity, Category, Description, ProductImage } = req.body;
+    const { ProductName, Price, Quantity, Category, Description } = req.body;
     return new Promise(async (resolve, reject) => {
-      if (ProductName && Price && Quantity && Category && Description && ProductImage) {
+      if (ProductName && Price && Quantity && Category && Description) {
         return Product.findOne({
           ProductName: ProductName,
         }).then(async (res) => {
@@ -15,21 +14,23 @@ class Products {
               message: "Product is Already Register",
             });
           } else {
-            const data = await Product(req.body);
-            data
-              .save()
-              .then((res) => {
-                return resolve({
-                  status: 200,
-                  message: res,
+            GloabalFunctions.UploadImage(req).then(async (url) => {
+              const data = await Product({ ...req.body, ProductImage: url });
+              data
+                .save()
+                .then((res) => {
+                  return resolve({
+                    status: 200,
+                    message: res,
+                  });
+                })
+                .catch((e) => {
+                  return reject({
+                    status: 400,
+                    message: "Product is not added",
+                  });
                 });
-              })
-              .catch((e) => {
-                return reject({
-                  status: 400,
-                  message: "Product is not added",
-                });
-              });
+            });
           }
         });
       } else {
