@@ -76,29 +76,29 @@ class Products {
 
   GetSingleProduct = (req) => {
     return new Promise(async (resolve, reject) => {
-      if(req.query.id){
-      return Product.findOne({_id:req.query.id})
-        .then((res) => {
-          return resolve({
-            status: 200,
-            data: res,
+      if (req.query.id) {
+        return Product.findOne({ _id: req.query.id })
+          .then((res) => {
+            return resolve({
+              status: 200,
+              data: res,
+            });
+          })
+          .catch((e) => {
+            return reject({
+              status: 400,
+              error: 'Product is not available',
+            });
           });
-        })
-        .catch((e) => {
-          return reject({
-            status: 400,
-            error: 'Product is not available',
-          });
-        });
       }
-      else{
+      else {
         return reject({
           status: 400,
           message: 'Product is not Available',
         });
       }
     });
-    
+
   };
 }
 module.exports = new Products();
