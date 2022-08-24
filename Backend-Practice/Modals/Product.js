@@ -1,7 +1,7 @@
+const GloabalFunctions = require("../GloabalFunctions");
 const Product = require("../Schema/ProductSchema");
 class Products {
   AddProduct = async (req) => {
-    // console.log(req.body);
     const { ProductName, Price, Quantity, Category, Description } = req.body;
     return new Promise(async (resolve, reject) => {
       if (ProductName && Price && Quantity && Category && Description) {
@@ -14,21 +14,23 @@ class Products {
               message: "Product is Already Register",
             });
           } else {
-            const data = await Product(req.body);
-            data
-              .save()
-              .then((res) => {
-                return resolve({
-                  status: 200,
-                  message: res,
+            GloabalFunctions.UploadImage(req).then(async (url) => {
+              const data = await Product({ ...req.body, ProductImage: url });
+              data
+                .save()
+                .then((res) => {
+                  return resolve({
+                    status: 200,
+                    message: res,
+                  });
+                })
+                .catch((e) => {
+                  return reject({
+                    status: 400,
+                    message: "Product is not added",
+                  });
                 });
-              })
-              .catch((e) => {
-                return reject({
-                  status: 400,
-                  message: "Product is not added",
-                });
-              });
+            });
           }
         });
       } else {
@@ -41,6 +43,7 @@ class Products {
   };
 
   GetProduct = async (req) => {
+    let datequery = {};
     let nameFilter = req.query.ProductName
       ? { ProductName: { $regex: req.query.ProductName, $options: "i" } }
       : {};
@@ -56,11 +59,36 @@ class Products {
       ...priceFilter,
       ...ProductCategory,
     });
+    let fromdate = new Date(req.query.fromdate);
+    let todate = new Date(req.query.todate);
+
+    if (fromdate == !null && todate == !null) {
+      datequery = {
+        Date: {
+          $gte: fromdate,
+          $lte: todate,
+        },
+      };
+    } else if (req.query.todate) {
+      datequery = {
+        Date: {
+          $lte: todate,
+        },
+      };
+    } else if (req.query.fromdate) {
+      datequery = {
+        Date: {
+          $gte: fromdate,
+        },
+      };
+    }
+
     return new Promise(async (resolve, reject) => {
       return Product.find()
         .find(nameFilter)
         .find(priceFilter)
         .find(ProductCategory)
+        .find(datequery)
         .then((res) => {
           return resolve({
             status: 200,
@@ -87,18 +115,28 @@ class Products {
           .catch((e) => {
             return reject({
               status: 400,
+<<<<<<< HEAD
               error: 'Product is not available',
             });
           });
       }
       else {
+=======
+              error: "Product is not available",
+            });
+          });
+      } else {
+>>>>>>> d4175694a279e8ed1b85a94d63d3b077d325fcd6
         return reject({
           status: 400,
-          message: 'Product is not Available',
+          message: "Product is not Available",
         });
       }
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> d4175694a279e8ed1b85a94d63d3b077d325fcd6
   };
 }
 module.exports = new Products();
