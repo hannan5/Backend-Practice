@@ -1,5 +1,111 @@
 // header 
 
 .header{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  height: 75px;
+  box-shadow:  0px 8px 16px 0px rgb(0 0 0 / 20%);
+  align-items: center;
   
+
+  .header_left,.header_right{
+    display: flex;
+    flex-direction: row;
+    width: 49%;
+    justify-content: space-evenly;
+
+    p{
+        padding: 5px 10px;
+        width: 100px;
+        text-align: center;
+        cursor: pointer;
+    }
+    p:hover{
+        background-color: #009f7f;
+        color: #fff;
+        border-radius: 5px;
+    }
+}
+}
+
+// Banner
+.banner{
+    width: 100%;
+    // height: 500px;
+    // background-color: #fafafa;
+    padding: 50px 0px;
+    h2{
+        text-align: center;
+        margin-top: 40px;
+    }
+    h5{
+        text-align: center;
+        margin-top: 40px;
+    }
+    .mainsearch{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin-top: 50px;
+        
+    .searchBox{
+        width: 60%;
+        height: 70px;
+        padding: 0px 0px 0px 10px;
+        border-radius: 5px;
+        border: 1px solid #009f7f;
+        display: flex;
+    input{
+        width: 80%;
+        height: 100%;
+        border: none;
+        background: none;
+    }
+    input:focus{
+        border: none;
+        outline: none;
+    }
+    .button{
+        width: 20%;
+        height: 70px;
+    }
+    }
+}
+
+}
+
+//card // Product Container
+.product_container{
+    padding: 10px;
+    background-color: #fafafa;
+    .main_card{
+        width: 350px;
+        height: 450px;
+        background-color: #fff;
+    border: 1px solid #f1f2f5;
+    border-radius: 10px;
+        .main_card_content{
+            margin-top: 10px;
+            padding: 0px 10px;
+        }
+        .card_bottom{
+            display: flex;
+            padding: 0px 10px;
+            align-items: baseline;
+            p{
+                color:#009f7f;
+            }
+            button{
+                width: 100%;
+                border-radius: 15px;
+                background-color: #009f7f;
+                border: none;
+                color: #fff;
+                padding: 5px 15px;
+            }
+        }
+    }
+
 }
