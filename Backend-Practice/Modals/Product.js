@@ -54,11 +54,11 @@ class Products {
     let ProductCategory = req.query.Category
       ? { Category: req.query.Category }
       : {};
-    let ProductCount = await Product.countDocuments({
-      ...nameFilter,
-      ...priceFilter,
-      ...ProductCategory,
-    });
+    // let ProductCount = await Product.countDocuments({
+    //   ...nameFilter,
+    //   ...priceFilter,
+    //   ...ProductCategory,
+    // });
     let fromdate = new Date(req.query.fromdate);
     let todate = new Date(req.query.todate);
 
@@ -92,12 +92,12 @@ class Products {
         .then((res) => {
           return resolve({
             status: 200,
-            message: res,
-            TotalProduct: ProductCount,
+           res,
+            // TotalProduct: ProductCount,
           });
         })
         .catch((e) => {
-          return reject({ status: 401, msg: e });
+          return reject({ status: 401, error: e });
         });
     });
   };
@@ -115,28 +115,12 @@ class Products {
           .catch((e) => {
             return reject({
               status: 400,
-<<<<<<< HEAD
-              error: 'Product is not available',
-            });
-          });
-      }
-      else {
-=======
               error: "Product is not available",
             });
           });
-      } else {
->>>>>>> d4175694a279e8ed1b85a94d63d3b077d325fcd6
-        return reject({
-          status: 400,
-          message: "Product is not Available",
-        });
-      }
+      } 
     });
-<<<<<<< HEAD
 
-=======
->>>>>>> d4175694a279e8ed1b85a94d63d3b077d325fcd6
   };
 }
 module.exports = new Products();
